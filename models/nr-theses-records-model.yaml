@@ -1,0 +1,26 @@
+version: 1.0.0
+title: Czech National Repository - theses metadata model
+oarepo:use:
+  - nr-documents-records
+model:
+  oarepo:marshmallow:
+    generate: false
+    class: nr_theses_records.services.schema.NRThesesSchema
+  properties:
+    metadata:
+      properties:
+        dateDefended:
+          oarepo:use: '#/$defs/NRDate'
+          oarepo:sample:
+            faker: date
+        defended:
+          type: boolean
+          oarepo:sample:
+            - true
+            - false
+        degreeGrantor[]:
+          oarepo:vocabulary:
+            type: institutions
+            fields: [id, title]
+        studyFields[]:
+          type: keyword

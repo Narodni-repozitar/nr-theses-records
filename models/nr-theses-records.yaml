@@ -1,0 +1,72 @@
+version: 1.0.0
+title: Czech National Repository - theses
+oarepo:use:
+  - ./nr-theses-records-model.yaml
+
+plugins:
+  packages:
+    - oarepo-model-builder-multilingual
+    - oarepo-model-builder-ui
+    - nr-vocabularies-model-builder
+    - oarepo-vocabularies-model-builder
+  builder:
+    disable:
+      - poetry
+      - cookiecutter
+      - invenio_ext_poetry
+      - invenio_sample_app_poetry
+      - invenio_record_metadata_alembic_poetry
+      - invenio_record_metadata_models_poetry
+      - invenio_record_resource_poetry
+      - invenio_record_search_poetry
+      - invenio_record_jsonschemas_poetry
+      - invenio_script_bootstrap
+      - invenio_script_runserver
+      - invenio_script_import_sample_data
+      - script_sample_data
+      - invenio_script_runserver
+
+oarepo:sample:
+  count: 1
+
+oarepo:model-validation:
+  jsonschema-property:
+    properties:
+      $comment:
+        type: string
+      $description:
+        type: string
+      enum:
+        type: array
+        items:
+          type: string
+      uniqueItems:
+        type: boolean
+      format:
+        type: string
+      minItems:
+        type: integer
+
+oarepo:ui:
+  translation:
+    default: 'en'
+
+settings:
+  supported-langs:
+    cs: {}
+    en: {}
+  package: 'nr_theses_records'
+  schema-server: 'local://'
+  python:
+    record-prefix: 'NRThesesRecord'
+    flask-extension-name: 'nr-theses-records'
+    ext-class: 'nr_theses_records.ext.NRThesesRecordsExt'
+    record-class: 'nr_theses_records.records.api.NRThesesRecord'
+    record-schema-class: nr_theses_records.services.schema.NRThesesSchema
+  oarepo:vocabularies:
+    schema: nr-vocabularies
+    record-class: nr_vocabularies.records.api.NRVocabulary
+
+model:
+  oarepo:marshmallow:
+    generate: true
